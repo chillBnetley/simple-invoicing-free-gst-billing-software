@@ -149,7 +149,7 @@ test.describe('Invoices', () => {
     await selectComboboxOption(page, productInputId, sku);
     await page.locator('[id^="invoice-quantity-"]').first().fill('2');
     await page.click('button:has-text("Create invoice")');
-    await expectSuccess(page, 'invoice created');
+    await expectSuccess(page, /Invoice \S+ saved/);
 
     // Verify invoice appears in the feed list
     await openInvoiceFeed(page);
@@ -188,7 +188,7 @@ test.describe('Invoices', () => {
     await page.locator('[id^="invoice-quantity-"]').first().fill('5');
 
     await page.click('button:has-text("Create invoice")');
-    await expectSuccess(page, 'invoice created');
+    await expectSuccess(page, /Invoice \S+ saved/);
 
     await openInvoiceFeed(page);
     await expect(page.locator('.invoice-compact-card', { hasText: ledgerName }).first()).toBeVisible();
@@ -212,7 +212,7 @@ test.describe('Invoices', () => {
     await page.locator('[id^="invoice-quantity-"]').first().fill('10');
 
     await page.click('button:has-text("Create invoice")');
-    await expectSuccess(page, 'Purchase invoice created');
+    await expectSuccess(page, /Purchase invoice \S+ saved/);
   });
 
   test('adds multiple line items', async ({ authedPage: page }) => {
@@ -263,7 +263,7 @@ test.describe('Invoices', () => {
     await selectComboboxOption(page, productInputId3, sku);
     await page.locator('[id^="invoice-quantity-"]').first().fill('3');
     await page.click('button:has-text("Create invoice")');
-    await expectSuccess(page, 'invoice created');
+    await expectSuccess(page, /Invoice \S+ saved/);
 
     // Cancel the invoice from invoice feed
     await openInvoiceFeed(page);
@@ -304,7 +304,7 @@ test.describe('Invoices', () => {
     await page.locator('[id^="invoice-quantity-"]').first().fill('2');
 
     await page.click('button:has-text("Create invoice")');
-    await expectSuccess(page, 'invoice created');
+    await expectSuccess(page, /Invoice \S+ saved/);
 
     // Verify the invoice appears in the feed with the backdated year in date text
     await openInvoiceFeed(page);
@@ -430,7 +430,7 @@ test.describe('Invoices', () => {
     await page.fill('#invoice-supplier-ref', supplierRef);
 
     await page.click('button:has-text("Create invoice")');
-    await expectSuccess(page, 'Purchase invoice created');
+    await expectSuccess(page, /Purchase invoice \S+ saved/);
 
     // Verify supplier ref appears in the invoice feed row
     await openInvoiceFeed(page);
@@ -471,7 +471,7 @@ test.describe('Invoices', () => {
     await openAdvanced(page);
     await page.fill('#invoice-supplier-ref', supplierRef);
     await page.click('button:has-text("Create invoice")');
-    await expectSuccess(page, 'Purchase invoice created');
+    await expectSuccess(page, /Purchase invoice \S+ saved/);
 
     // Click edit from invoice feed
     await openInvoiceFeed(page);
@@ -497,7 +497,7 @@ test.describe('Invoices', () => {
     await openAdvanced(page);
     await page.fill('#invoice-reference-notes', referenceNotes);
     await page.click('button:has-text("Create invoice")');
-    await expectSuccess(page, 'Sales invoice created');
+    await expectSuccess(page, /Invoice \S+ saved/);
 
     await openInvoiceFeed(page);
     const invoiceCard = page.locator('.invoice-compact-card', { hasText: ledgerName }).first();
@@ -555,7 +555,7 @@ test.describe('Invoices', () => {
     await page.locator('[id^="invoice-quantity-"]').first().fill('1');
 
     await page.click('button:has-text("Create invoice")');
-    await expectSuccess(page, 'invoice created');
+    await expectSuccess(page, /Invoice \S+ saved/);
 
     await openInvoiceFeed(page);
     const invoiceCard = page.locator('.invoice-compact-card', { hasText: ledgerName }).first();
@@ -585,7 +585,7 @@ test.describe('Invoices', () => {
     await page.locator('[id^="invoice-quantity-"]').first().fill('1');
 
     await page.click('button:has-text("Create invoice")');
-    await expectSuccess(page, 'invoice created');
+    await expectSuccess(page, /Invoice \S+ saved/);
 
     await openInvoiceFeed(page);
     const invoiceCard = page.locator('.invoice-compact-card', { hasText: ledgerName }).first();
@@ -610,7 +610,7 @@ test.describe('Invoices', () => {
     // Create with tax-inclusive ON
     await page.check('#invoice-tax-inclusive');
     await page.click('button:has-text("Create invoice")');
-    await expectSuccess(page, 'invoice created');
+    await expectSuccess(page, /Invoice \S+ saved/);
 
     // Click edit from invoice feed — checkbox should be restored to checked
     await openInvoiceFeed(page);
@@ -693,7 +693,7 @@ test.describe('Invoices', () => {
     await selectComboboxOption(page, productInputId, sku);
     await page.locator('[id^="invoice-quantity-"]').first().fill('1');
     await page.click('button:has-text("Create invoice")');
-    await expectSuccess(page, 'Purchase invoice created');
+    await expectSuccess(page, /Purchase invoice \S+ saved/);
 
     await openInvoiceFeed(page);
     const invoiceCard = page.locator('.invoice-compact-card', { hasText: ledgerName }).first();
@@ -724,7 +724,7 @@ test.describe('Invoices', () => {
     await openAdvanced(page);
     await page.fill('#invoice-supplier-ref', supplierRef);
     await page.click('button:has-text("Create invoice")');
-    await expectSuccess(page, 'Purchase invoice created');
+    await expectSuccess(page, /Purchase invoice \S+ saved/);
 
     await openInvoiceFeed(page);
     const invoiceCard = page.locator('.invoice-compact-card', { hasText: ledgerName }).first();
@@ -751,7 +751,7 @@ test.describe('Invoices', () => {
     await page.locator('[id^="invoice-quantity-"]').first().fill('1');
     // No supplier ref filled
     await page.click('button:has-text("Create invoice")');
-    await expectSuccess(page, 'Purchase invoice created');
+    await expectSuccess(page, /Purchase invoice \S+ saved/);
 
     await openInvoiceFeed(page);
     const invoiceCard = page.locator('.invoice-compact-card', { hasText: ledgerName }).first();
@@ -776,7 +776,7 @@ test.describe('Invoices', () => {
     await selectComboboxOption(page, productInputId, sku);
     await page.locator('[id^="invoice-quantity-"]').first().fill('1');
     await page.click('button:has-text("Create invoice")');
-    await expectSuccess(page, 'Purchase invoice created');
+    await expectSuccess(page, /Purchase invoice \S+ saved/);
 
     await openInvoiceFeed(page);
     const invoiceCard = page.locator('.invoice-compact-card', { hasText: ledgerName }).first();
@@ -803,7 +803,7 @@ test.describe('Invoices', () => {
     await selectComboboxOption(page, productInputId, sku);
     await page.locator('[id^="invoice-quantity-"]').first().fill('1');
     await page.click('button:has-text("Create invoice")');
-    await expectSuccess(page, 'Sales invoice created');
+    await expectSuccess(page, /Invoice \S+ saved/);
 
     await openInvoiceFeed(page);
     const invoiceCard = page.locator('.invoice-compact-card', { hasText: ledgerName }).first();
@@ -833,7 +833,7 @@ test.describe('Invoices', () => {
     await openAdvanced(page);
     await page.fill('#invoice-supplier-ref', 'SP-E2E-PDF');
     await page.click('button:has-text("Create invoice")');
-    await expectSuccess(page, 'Purchase invoice created');
+    await expectSuccess(page, /Purchase invoice \S+ saved/);
 
     // Open preview and click Download PDF — intercept the network request
     await openInvoiceFeed(page);
@@ -863,7 +863,7 @@ test.describe('Invoices', () => {
     await selectComboboxOption(page, productInputId, sku);
     await page.locator('[id^="invoice-quantity-"]').first().fill('1');
     await page.click('button:has-text("Create invoice")');
-    await expectSuccess(page, 'Sales invoice created');
+    await expectSuccess(page, /Invoice \S+ saved/);
 
     await openInvoiceFeed(page);
     const invoiceCard = page.locator('.invoice-compact-card', { hasText: ledgerName }).first();

@@ -137,7 +137,7 @@ test.describe('Share link', () => {
     await selectComboboxOption(page, productInputId, sku);
     await page.locator('[id^="invoice-quantity-"]').first().fill('2');
     await page.click('button:has-text("Create invoice")');
-    await expectSuccess(page, 'invoice created');
+    await expectSuccess(page, /Invoice \S+ saved/);
 
     // The preview opens straight off creation on the invoices page.
     const preview = page.locator('.modal-panel--invoice-preview');

@@ -104,7 +104,7 @@ test.describe('GSTR-1 filing', () => {
       page.click('button:has-text("Create invoice")'),
     ]);
     expect(response.status()).toBe(200);
-    await expectSuccess(page, 'invoice created');
+    await expectSuccess(page, /Invoice \S+ saved/);
 
     const preview = page.locator('.modal-overlay[aria-labelledby="invoice-preview-title"]');
     if (await preview.isVisible()) {

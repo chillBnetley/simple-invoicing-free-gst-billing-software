@@ -58,7 +58,7 @@ test.describe('Credit notes', () => {
     await page.locator('[id^="invoice-quantity-"]').first().fill(quantity);
 
     await page.click('button:has-text("Create invoice")');
-    await expectSuccess(page, 'invoice created');
+    await expectSuccess(page, /invoice \S+ saved/i);
 
     // The PDF preview opens over the shell and swallows nav clicks.
     const preview = page.locator('.modal-overlay[aria-labelledby="invoice-preview-title"]');

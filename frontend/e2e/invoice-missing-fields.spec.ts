@@ -72,7 +72,7 @@ test.describe('Create invoice with missing fields', () => {
     await expect(reason).toHaveCount(0);
     await page.waitForTimeout(800);
     await createButton.click();
-    await expectSuccess(page, 'Sales invoice created');
+    await expectSuccess(page, /Invoice \S+ saved/);
 
     const preview = page.locator('.modal-panel--invoice-preview');
     await expect(preview).toBeVisible({ timeout: 10_000 });

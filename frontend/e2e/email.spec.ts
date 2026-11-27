@@ -176,7 +176,7 @@ test.describe('Send Email Modal', () => {
       await selectComboboxOption(page, productInputId, sku);
       await page.locator('[id^="invoice-quantity-"]').first().fill('1');
       await page.click('button:has-text("Create invoice")');
-      await expectSuccess(page, 'invoice created');
+      await expectSuccess(page, /Invoice \S+ saved/);
 
       // Open preview from the invoice feed view
       await page.goto('/invoices-view');
@@ -255,7 +255,7 @@ test.describe('Send Email Modal', () => {
       await selectComboboxOption(page, productInputId, sku);
       await page.locator('[id^="invoice-quantity-"]').first().fill('1');
       await page.click('button:has-text("Create invoice")');
-      await expectSuccess(page, 'invoice created');
+      await expectSuccess(page, /Invoice \S+ saved/);
 
       // Creating an invoice pops the PDF preview, an aria-modal dialog whose
       // overlay covers the sidebar — dismiss it before navigating by rail click.

@@ -39,7 +39,7 @@ async function createInvoicePrerequisites(page: Parameters<typeof selectCombobox
   await page.locator('[id^="invoice-quantity-"]').first().fill('2');
 
   await page.click('button:has-text("Create invoice")');
-  await expectSuccess(page, 'Sales invoice created');
+  await expectSuccess(page, /Invoice \S+ saved/);
 
   return { sku, ledgerName };
 }

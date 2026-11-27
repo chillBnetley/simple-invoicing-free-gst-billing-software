@@ -73,7 +73,7 @@ test.describe('Ledger Statement', () => {
 
     await page.locator('[id^="invoice-quantity-"]').first().fill('3');
     await page.click('button:has-text("Create invoice")');
-    await expectSuccess(page, 'invoice created');
+    await expectSuccess(page, /Invoice \S+ saved/);
 
     // Creating an invoice pops the PDF preview, an aria-modal dialog whose
     // overlay covers the sidebar — dismiss it before navigating by rail click.

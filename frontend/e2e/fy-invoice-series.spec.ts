@@ -169,7 +169,7 @@ async function createInvoiceOnDate(
   );
   await page.click('button:has-text("Create invoice")');
   const createResponse = await createResponsePromise;
-  await expectSuccess(page, 'invoice created');
+  await expectSuccess(page, /Invoice \S+ saved/);
 
   // Creating an invoice pops the PDF preview, whose overlay covers the sidebar —
   // dismiss it so the next clickNavLink can reach the rail.

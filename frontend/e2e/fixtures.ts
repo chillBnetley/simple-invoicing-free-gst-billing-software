@@ -156,8 +156,12 @@ export async function adjustInventory(page: Page, sku: string, quantity: string,
   await expect(modal).toBeHidden({ timeout: 5_000 });
 }
 
-/** Helper: wait for a success toast to appear and contain text. */
-export async function expectSuccess(page: Page, substring: string) {
+/**
+ * Helper: wait for a success toast to appear and contain text.
+ * Pass a RegExp when the toast embeds a generated number, e.g. the invoice
+ * number in "Invoice INV-2026-010 saved." (see invoiceToast.ts).
+ */
+export async function expectSuccess(page: Page, substring: string | RegExp) {
   const banner = page.locator('.toast--success').filter({ hasText: substring }).last();
   await expect(banner).toBeVisible({ timeout: Number((globalThis as any).process?.env?.E2E_EXPECT_TIMEOUT_MS || '5000') });
   await expect(banner).toContainText(substring);
@@ -367,7 +371,7 @@ export async function ensureSalesData(page: Page) {
   await selectComboboxOption(page, 'invoice-product-1', sku);
   await page.locator('[id^="invoice-quantity-"]').first().fill('1');
   await page.click('button:has-text("Create invoice")');
-  await expectSuccess(page, 'Sales invoice created');
+  await expectSuccess(page, /Invoice \S+ saved/);
 
   // Creating an invoice pops the PDF preview over the whole page.
   const preview = page.locator('.modal-panel--invoice-preview');

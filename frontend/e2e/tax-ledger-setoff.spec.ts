@@ -68,7 +68,7 @@ test.describe('Tax ledger set-off', () => {
       await selectComboboxOption(page, productInputId, sku);
       await page.locator('[id^="invoice-quantity-"]').first().fill(quantity);
       await page.click('button:has-text("Create invoice")');
-      await expectSuccess(page, 'invoice created');
+      await expectSuccess(page, /invoice \S+ saved/i);
     }
 
     await createInvoice('sales', intra, '2');
